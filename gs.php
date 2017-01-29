@@ -18,7 +18,7 @@ require_once "man.php";
 require_once "woman.php";
 
 //Number of pairs to generate
-$number_of_pairs = 10;
+$number_of_pairs = 20;
 
 
 
@@ -144,15 +144,23 @@ while (check_for_remaining_free_men())
 }
 
 
+$m_goodness_sum = 0;
+$w_goodness_sum = 0;
 
 echo "\n\n\n\n\nPrinting final pairs:\n";
 foreach($mated_men as $m)
 {
     $m_name = $m->get_name();
-    echo "\n$m_name is engaged to ".$m->get_mate();
+    $w_name = $m->get_mate();
+    $m_match_goodness = $m->get_match_goodness();
+    $m_goodness_sum += $m_match_goodness;
+    $w_match_goodness = $women[$w_name]->get_match_goodness();
+    $w_goodness_sum += $w_match_goodness;
+    echo "\n$m_name is engaged to ".$m->get_mate()." | man match goodness: $m_match_goodness | woman match goodness: $w_match_goodness";
 }
 
-
+echo "\n\nAverage man match goodness: ".(round(($m_goodness_sum/$number_of_pairs),3)).
+        "\nAverage woman match goodness: ".(round(($w_goodness_sum/$number_of_pairs),3));
 
 
 

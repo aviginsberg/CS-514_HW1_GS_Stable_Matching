@@ -21,6 +21,7 @@ class woman
             array_push($this->preference_list,"M".$i);
             shuffle($this->preference_list);
         }
+
     }
 
     function get_pref_list()
@@ -58,4 +59,10 @@ class woman
         return $this->my_name;
     }
 
+    function get_match_goodness()
+    {
+        $number_of_partners = count($this->preference_list);
+        $result = ($number_of_partners - $this->get_pref_list_pos_of_man($this->mate)) / $number_of_partners;
+        return round($result,2);
+    }
 }

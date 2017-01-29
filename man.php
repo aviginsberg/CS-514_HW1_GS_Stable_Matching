@@ -84,4 +84,15 @@ class man
         }
     }
 
+    function get_pref_list_pos_of_woman($woman)
+    {
+        return array_search($woman, $this->preference_list);
+    }
+
+    function get_match_goodness()
+    {
+        $number_of_partners = count($this->preference_list);
+        $result = ($number_of_partners - $this->get_pref_list_pos_of_woman($this->mate)) / $number_of_partners;
+        return round($result,2);
+    }
 }
